@@ -5,8 +5,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const app = express();
-const url = "https://anniversary-modular.onrender.com/";
-const interval = 120000; // Interval in milliseconds (30 seconds)
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -254,19 +252,6 @@ app.post('/api/upload/music', upload.single('music'), (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
-
-function reloadWebsite() {
-    axios.get(url)
-      .then(response => {
-        console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
-      })
-      .catch(error => {
-        console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
-      });
-}
-  
-  
-setInterval(reloadWebsite, interval);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
