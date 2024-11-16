@@ -35,6 +35,19 @@ app.use('/admin', basicAuth({
 const CAROUSEL_FILE = 'public/data/carousel-data.json';
 const MUSIC_FILE = 'public/data/music-data.json';
 const INTRO_TEXT_FILE = 'public/data/intro-text.json';
+// Ensure required directories exist
+const directories = [
+    'public/images',
+    'public/music',
+    'public/data'
+];
+
+directories.forEach(dir => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+        console.log(`Created directory: ${dir}`);
+    }
+});
 
 
 
