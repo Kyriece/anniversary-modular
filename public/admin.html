@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Site Admin</title>
+    <style>
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* Section Layout */
+.section {
+    background: white;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Navigation Tabs */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    background: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: #007bff;
+    color: white;
+}
+
+/* Content Sections */
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+/* Headers */
+h2, h3 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+h3 {
+    padding-bottom: 8px;
+    border-bottom: 2px solid #007bff;
+}
+
+/* Upload Areas */
+.upload-area {
+    background: #fff;
+    border: 2px dashed #007bff;
+    padding: 25px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 20px 0;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+    background: #f8f9fa;
+    border-color: #0056b3;
+}
+
+/* Common Input Styles */
+input, textarea {
+    font-size: 16px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+input:hover, textarea:hover {
+    border-color: #007bff;
+}
+
+/* Buttons */
+button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+    margin: 5px;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+.delete-btn {
+    background: #dc3545;
+}
+
+.delete-btn:hover {
+    background: #c82333;
+}
+
+.move-btn {
+    background: #2196F3;
+}
+
+.move-btn:hover {
+    background: #0d8bf2;
+}
+
+/* Status Message */
+.status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
+
+/* Carousel Items */
+.carousel-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    border-radius: 4px;
+    align-items: flex-start;
+    background: #f8f9fa;
+}
+
+.carousel-item:hover {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.carousel-item img,
+.carousel-item video {
+    max-width: 300px;
+    max-height: 220px;
+    object-fit: contain;
+}
+
+.carousel-item input[type="number"] {
+    width: 60px;
+    text-align: center;
+}
+
+.carousel-item textarea {
+    flex: 1;
+    min-width: 200px;
+    height: 60px;
+    resize: vertical;
+}
+
+/* Music Items */
+.music-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin: 8px 0;
+    transition: background-color 0.2s;
+}
+
+.music-item:hover {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.music-item input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Intro Text Items */
+.intro-text-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.intro-text-item:hover {
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.intro-text-item input[type="text"] {
+    flex-grow: 1;
+    font-size: 18px;
+}
+
+/* Timing Settings */
+.timing-settings label {
+    font-size: 16px;
+    display: inline-block;
+    width: 200px;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .carousel-item img,
+    .carousel-item video {
+        max-width: 100%;
+    }
+    
+    .intro-text-item,
+    .music-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+    </style>
+</head>
+<body>
+    <h1>Anniversary Site Admin</h1>
+    <div id="saveStatus" class="status">Changes saved!</div>
+
+    <div class="tabs">
+        <button class="tab active" onclick="showSection('carousel')">Carousel Images</button>
+        <button class="tab" onclick="showSection('music')">Music</button>
+        <button class="tab" onclick="showSection('intro')">Intro Text</button>
+    </div>
+
+    <div id="carousel-section" class="content-section active section">
+        <h2>Manage Carousel Images</h2>
+        <div class="upload-area">
+            <input type="file" id="imageUpload" accept="image/*,video/*" multiple>
+            <p>Drop images or videos here</p>
+        </div>
+        <button onclick="uploadImages()">Upload Selected Files</button>
+        <div id="carouselItems" class="carousel-items"></div>
+    </div>
+
+    <div id="music-section" class="content-section section">
+        <h2>Manage Music</h2>
+        <div class="upload-area">
+            <input type="file" id="musicUpload" accept=".mp3" multiple>
+            <p>Drop MP3 files here</p>
+        </div>
+        <button onclick="uploadMusic()">Upload Music</button>
+        
+        <h3>Regular Playlist</h3>
+        <div id="regularPlaylist"></div>
+        
+        <h3>Initial Pool (First Songs)</h3>
+        <div id="initialPool"></div>
+    </div>
+
+    <div id="intro-section" class="content-section section">
+        <h2>Manage Intro Text</h2>
+        <div id="introTextList"></div>
+        <button onclick="addIntroText()">Add New Text</button>
+        <div class="timing-settings">
+            <h3>Timing Settings</h3>
+            <div>
+                <label>Text Size (px):</label>
+                <input type="number" id="textSize" value="48">
+            </div>
+            <div>
+                <label>Initial Delay (ms):</label>
+                <input type="number" id="initialDelay" value="5000">
+            </div>
+            <div>
+                <label>Delay Between Sentences (ms):</label>
+                <input type="number" id="delayBetween" value="1000">
+            </div>
+        </div>
+        <button onclick="saveIntroSettings()">Save Intro Settings</button>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

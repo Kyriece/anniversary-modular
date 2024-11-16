@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Falling Hearts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="heart-container"></div>
+  
+  <div id="text-container">
+    <h1 id="big-text"></h1>
+  </div>
+
+  <div class="second-screen">
+    <div id="music-controller">
+      <div id="now-playing">
+          <div id="song-title">None</div>
+      </div>
+      <audio id="audio-player"></audio>
+      <div id="controls">
+          <button id="prev-song" class="control-button"><img src="icons/prev.svg" alt="Previous"></button>
+          <button id="play-pause" class="control-button"><img src="icons/play.svg" alt="Play/Pause"></button>
+          <button id="next-song" class="control-button"><img src="icons/next.svg" alt="Next"></button>
+      </div>
+      <div id="progress-container">
+          <div id="progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="carousel">
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <div class="slide-container">
+        <!-- Slides will be loaded dynamically -->
+      </div>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <div class="slide-texts">
+      <!-- Captions will be loaded dynamically -->
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+node_modules/
+.env
+public/music/*
+public/images/*
+public/data/*
+package-lock.json

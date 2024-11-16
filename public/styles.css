@@ -1,0 +1,369 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #333232;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#heart-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  width: var(--heart-size);
+  height: var(--heart-size);
+  background-color: red;
+  transform: rotate(-45deg);
+  animation: fall linear 5s, fade linear infinite;
+  z-index: -1;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: var(--heart-size);
+  height: var(--heart-size);
+  background-color: red;
+  border-radius: 50%;
+}
+
+.heart:before {
+  top: calc(var(--heart-size) * -0.5);
+  left: 0;
+}
+
+.heart:after {
+  top: 0;
+  left: calc(var(--heart-size) * 0.5);
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(calc(var(--initial-rotate) + -45deg));
+  }
+  100% {
+    transform: translateY(100vh) rotate(calc(var(--initial-rotate) + -45deg));
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+#text-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#big-text {
+  color: aliceblue;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.second-screen {
+  background: #B7B5E4;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel {
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.slide-container {
+  height: 70vh;
+  display: flex;
+  transition: transform 0.8s ease;
+  align-items: center;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 25%;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0px 20px;
+  opacity: 0.5;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  transform: scale(0.8);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  will-change: transform, opacity;
+}
+
+.slide.central {
+  flex: 0 0 50%;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.image-wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide img, .slide video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 55vh;
+  display: block;
+  margin: 0 auto;
+  border-radius: 40px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  object-fit: contain;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.slide-texts {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  min-height: 50px;
+  max-width: 800px; /* Limit width on desktop */
+  margin-left: auto; /* Center the container */
+  margin-right: auto;
+}
+
+.slide-text {
+  display: none;
+  font-size: 1.2rem;
+  color: #333;
+  padding: 0 20px;
+  margin: 0;
+}
+
+.slide.central + .slide-texts .slide-text:nth-child(1) {
+  display: block;
+}
+
+#music-controller {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: rgba(24, 24, 24, 0.9);
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 300px;
+}
+
+#now-playing {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+#controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.control-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.control-button img {
+  width: 24px;
+  height: 24px;
+}
+
+#progress-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+#progress-bar {
+  background-color: #1DB954;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: width;
+}
+
+@media screen and (max-width: 768px) {
+  .second-screen {
+    padding-bottom: 70px;
+  }
+
+  .slide-container {
+    height: 85vh;
+  }
+  
+  .slide {
+    padding: 0px 15px;
+    transform: scale(0.4);
+  }
+  
+  .slide.central {
+    transform: scale(1.5);
+    padding: 10px;
+  }
+  
+  .slide img, .slide video {
+    max-height: 95vh;
+  }
+  
+  .prev, .next {
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .slide-text {
+    font-size: 0.9rem;
+    padding: 0 10px;
+    margin-top: 10px;
+  }
+
+  #music-controller {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 0; /* Changed padding */
+    border-radius: 15px 15px 0 0;
+    background-color: rgba(24, 24, 24, 0.95);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 
+      "title controls controls"
+      "progress progress progress";
+    gap: 5px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box; /* Added this */
+  }
+
+  /* Adjust inner padding instead */
+  #now-playing {
+    grid-area: title;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 20px;
+    margin: 0;
+    align-self: center;
+  }
+  
+  #song-title {
+    display: inline-block;
+    animation: marquee 15s linear infinite;
+    padding-right: 20px;
+  }
+  
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  #controls {
+    grid-area: controls;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 0;
+    width: auto;
+    padding: 0 20px;
+  }
+
+  .control-button {
+    padding: 5px;
+  }
+
+  .control-button img {
+    width: 20px;
+    height: 20px;
+  }
+
+  #progress-container {
+    grid-area: progress;
+    margin: 0 20px;
+    height: 3px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #music-controller {
+    padding: 5px 15px;
+  }
+
+  #controls {
+    gap: 25px;
+  }
+}
