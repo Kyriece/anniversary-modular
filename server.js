@@ -26,7 +26,13 @@ const upload = multer({ storage: storage });
 app.use(express.static('public'));
 app.use(express.json());
 // Protect admin routes
-app.use('/admin', basicAuth({
+app.use('/admin', (req, res, next) => {
+    res.set('WWW-Authenticate', 'Basic realm="Admin Access"');
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    next();
+}, basicAuth({
     users: { 'admin': process.env.ADMIN_PASSWORD || 'default_password' },
     challenge: true
 }));
@@ -76,10 +82,16 @@ function initializeCarouselData() {
 }
 
 app.get('/admin', (req, res) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
 app.get('/admin.js', (req, res) => {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
     res.sendFile(path.join(__dirname, 'admin.js'));
 });
 
