@@ -75,6 +75,10 @@ function initializeCarouselData() {
     return initialData;
 }
 
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 // Get carousel data
 app.get('/api/carousel', (req, res) => {
     try {
