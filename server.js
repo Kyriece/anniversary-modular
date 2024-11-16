@@ -79,6 +79,10 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+app.get('/admin.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.js'));
+});
+
 // Get carousel data
 app.get('/api/carousel', (req, res) => {
     try {
